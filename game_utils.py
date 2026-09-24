@@ -20,8 +20,8 @@ Cell = Annotated[
 Row = Annotated[
     list[Cell],
     Field(
-        min_length=ROWS,
-        max_lenght=ROWS
+        min_length=COLUMNS,
+        max_length=COLUMNS
     )
 ]
 
