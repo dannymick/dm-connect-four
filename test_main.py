@@ -5,7 +5,7 @@ client = TestClient(app)
 
 def test_validation_error():
     resp = client.post(
-        "/evaluate-board-state",
+        "/evaluate_board_state",
         json={
             "board": [[]]
         }
@@ -15,7 +15,7 @@ def test_validation_error():
 
 def test_game_in_progress():
     resp = client.post(
-        "/evaluate-board-state",
+        "/evaluate_board_state",
         json={
             "board": [
                 [0, 0, 0, 0, 0, 0, 0],
@@ -32,7 +32,7 @@ def test_game_in_progress():
 
 def test_stalemate():
     resp = client.post(
-        "/evaluate-board-state",
+        "/evaluate_board_state",
         json={
             "board": [
                 [1, 2, 1, 2, 1, 2, 1],
@@ -49,7 +49,7 @@ def test_stalemate():
 
 def test_blue_wins_horizontal():
     resp = client.post(
-        "/evaluate-board-state",
+        "/evaluate_board_state",
         json={
             "board": [
                 [0, 0, 0, 0, 0, 0, 0],
@@ -66,7 +66,7 @@ def test_blue_wins_horizontal():
 
 def test_red_wins_diagonal():
     resp = client.post(
-        "/evaluate-board-state",
+        "/evaluate_board_state",
         json={
             "board": [
                 [0, 0, 0, 0, 0, 0, 0],
@@ -83,7 +83,7 @@ def test_red_wins_diagonal():
 
 def test_blue_and_red():
     resp = client.post(
-        "/evaluate-board-state",
+        "/evaluate_board_state",
         json={
             "board": [
                 [0, 0, 0, 0, 0, 0, 0],
@@ -100,7 +100,7 @@ def test_blue_and_red():
 
 def test_out_of_place_piece():
     resp = client.post(
-        "/evaluate-board-state",
+        "/evaluate_board_state",
         json={
             "board": [
                 [0, 0, 0, 0, 0, 0, 0],
