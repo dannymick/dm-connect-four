@@ -46,3 +46,37 @@ def test_stalemate():
     )
 
     assert resp.status_code == 200
+
+def test_blue_wins_horizontal():
+    resp = client.post(
+        "/evaluate-board-state",
+        json={
+            "board": [
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 2, 2, 0, 0],
+                [0, 0, 0, 2, 1, 1, 0],
+                [0, 1, 1, 1, 1, 2, 2]
+            ]
+        }
+    )
+
+    assert resp.status_code == 200
+
+def test_red_wins_diagonal():
+    resp = client.post(
+        "/evaluate-board-state",
+        json={
+            "board": [
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 2, 1, 0],
+                [0, 0, 0, 2, 2, 0, 0],
+                [0, 0, 2, 2, 1, 1, 1],
+                [0, 2, 1, 1, 1, 2, 2]
+            ]
+        }
+    )
+
+    assert resp.status_code == 200

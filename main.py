@@ -9,6 +9,7 @@ BLUE = 1
 RED = 2
 ROWS = 6
 COLUMNS = 7
+TOTAL_CELLS = 42
 
 Cell = Annotated[
     int,
@@ -50,12 +51,54 @@ def count_pieces(board):
     
     return blue_count, red_count
 
+def get_winning_line(board, starting_row, starting_col, row_step, col_step):
+    curr_player = board[starting_row][starting_col]
+    cells = []
+    # scan board in each direction, 4 possible moves
+    for i in range(4):
+        row = starting_row + (row_step * i)
+        col = starting_col + (col_step * i)
+
+        # check if in board bounds
+        if row < 0 or row >= ROWS or col < 0 or col >= COLUMNS:
+            return None
+
+        if board[row][col] != curr_player:
+            return None
+
+        cells.append({
+            "row": row,
+            "column": col
+        })
+    
+    print("cells ", cells)
+    return cells
+
+def get_wins(board):
+    wins = []
+    for row in range(ROWS):
+        for col in range(COLUMNS):
+            # cell empty continue with board scan
+            if board[row][col] is EMPTY:
+                continue
+            # scan all possible directions
+            for row_step, col_step in ((0,1), (1,0), (1,1),(-1,1)):
+                cells = get_winning_line(board, row, col, row_step, col_step)
+                print(cells)
+                if cells is not None:
+                    wins.append({
+                        "player": board[row][col],
+                        "cells": cells
+                    })
+    return wins
+
 def evaluate_board(board):
     blue_count, red_count = count_pieces(board)
-    print(blue_count, red_count)
     # handle game winner resp
+    wins = get_wins(board)
+    print("wins ", wins)
     # handle stalemate resp
-    if blue_count + red_count == 42:
+    if blue_count + red_count == TOTAL_CELLS:
         return {
             "status": "stalemate"
         }
