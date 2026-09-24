@@ -29,3 +29,20 @@ def test_game_in_progress():
     )
 
     assert resp.status_code == 200
+
+def test_stalemate():
+    resp = client.post(
+        "/evaluate-board-state",
+        json={
+            "board": [
+                [1, 2, 1, 2, 1, 2, 1],
+                [2, 1, 2, 1, 2, 1, 2],
+                [2, 1, 2, 1, 2, 1, 2],
+                [1, 2, 1, 2, 1, 2, 1],
+                [2, 1, 2, 1, 2, 1, 2],
+                [2, 1, 2, 1, 2, 1, 2]
+            ]
+        }
+    )
+
+    assert resp.status_code == 200
