@@ -71,7 +71,6 @@ def get_winning_line(board, starting_row, starting_col, row_step, col_step):
             "column": col
         })
     
-    print("cells ", cells)
     return cells
 
 def get_wins(board):
@@ -84,7 +83,6 @@ def get_wins(board):
             # scan all possible directions
             for row_step, col_step in ((0,1), (1,0), (1,1),(-1,1)):
                 cells = get_winning_line(board, row, col, row_step, col_step)
-                print(cells)
                 if cells is not None:
                     wins.append({
                         "player": board[row][col],
@@ -96,15 +94,39 @@ def evaluate_board(board):
     blue_count, red_count = count_pieces(board)
     # handle game winner resp
     wins = get_wins(board)
-    print("wins ", wins)
+
+    blue_winner = False
+    red_winner = False
+
+    # iterate through wins to determine game winner
+    for win in wins:
+        if win["player"] == BLUE:
+            blue_winner = True
+        else:
+            red_winner = True
+
+    if blue_winner and red_winner:
+        raise ValueError("There can only be one winner")
     # handle stalemate resp
     if blue_count + red_count == TOTAL_CELLS:
         return {
             "status": "stalemate"
         }
+
+    if len(wins) > 0:
+        winner = wins[0]["player"]
+        return {
+            "status": "gameover",
+            "winner": winner,
+            "winning_coords": wins[0]["cells"]
+        }
+
     # handle game in progress resp
+    next_player = BLUE if blue_count == red_count else RED
+
     return {
-        "status": "in_progress"
+        "status": "in_progress",
+        "next_player_turn": next_player
     }
 
 class BoardRequest(BaseModel):

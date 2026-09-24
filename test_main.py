@@ -80,3 +80,20 @@ def test_red_wins_diagonal():
     )
 
     assert resp.status_code == 200
+
+def test_blue_and_red():
+    resp = client.post(
+        "/evaluate-board-state",
+        json={
+            "board": [
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 2, 1],
+                [0, 0, 0, 0, 2, 1, 1],
+                [0, 0, 0, 2, 2, 2, 1],
+                [0, 0, 2, 2, 1, 1, 1],
+                [0, 2, 1, 1, 1, 2, 2]
+            ]
+        }
+    )
+
+    assert resp.status_code == 400
