@@ -93,7 +93,15 @@ def get_wins(board):
                     })
     return wins
 
+def check_out_of_place(board):
+    for row in range(ROWS - 1):
+        for col in range(COLUMNS):
+            if board[row][col] != EMPTY and board[row + 1][col] == EMPTY:
+                raise ValueError("Out of place")
+
 def evaluate_board(board):
+    check_out_of_place(board)
+    
     blue_count, red_count = count_pieces(board)
     # handle game winner resp
     wins = get_wins(board)
