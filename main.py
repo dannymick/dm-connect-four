@@ -36,6 +36,9 @@ Board = Annotated[
     )
 ]
 
+def get_player_name(player):
+    return "blue" if BLUE else "red"
+
 def count_pieces(board):
     blue_count = 0
     red_count = 0
@@ -117,7 +120,7 @@ def evaluate_board(board):
         winner = wins[0]["player"]
         return {
             "status": "gameover",
-            "winner": winner,
+            "winner": get_player_name(winner),
             "winning_coords": wins[0]["cells"]
         }
 
@@ -126,7 +129,7 @@ def evaluate_board(board):
 
     return {
         "status": "in_progress",
-        "next_player_turn": next_player
+        "next_player_turn": get_player_name(next_player)
     }
 
 class BoardRequest(BaseModel):
