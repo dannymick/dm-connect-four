@@ -11,12 +11,12 @@ cd dm-connect-four
 uv sync
 
 # run dev server, pyproject.toml points to main.py as entry point
-uv run fastapi dev
+uv run fastapi dev --port 8080
 
 # run tests
 uv run pytest
 ```
 
-Server: http://127.0.0.1:8000
+Server: http://127.0.0.1:8080
 
-Swagger docs: http://127.0.0.1:8000/docs
+Swagger docs: http://127.0.0.1:8080/docs
